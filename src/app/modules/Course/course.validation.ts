@@ -1,0 +1,21 @@
+import {z} from "zod"
+
+const PreRequisiteCourseValidationSchema = z.object({
+    couurse: z.string(),
+    isDeleted: z.boolean().optional()
+})
+
+
+const createCourseValidationSchema = z.object({
+    body: z.object({
+        title:z.string(),
+        prefix:z.string(),
+        code:z.number(),
+        credits:z.number(),
+        preRequisiteCourses:z.array(PreRequisiteCourseValidationSchema).optional()
+    })
+})
+
+export const CourseValidations = {
+    createCourseValidationSchema
+}
