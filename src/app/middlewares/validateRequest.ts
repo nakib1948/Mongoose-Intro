@@ -1,14 +1,12 @@
-const validateRequest = (schema: AnyZodObject) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        await schema.parseAsync({
-          body: req.body,
-        });
-        next();
-      } catch (err) {
-        next(err);
-      }
-    };
-  };
+import catchAsync from '../utils/catchAsync';
 
-  export default validateRequest
+const validateRequest = (schema: AnyZodObject) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    await schema.parseAsync({
+      body: req.body,
+    });
+    next();
+  });
+};
+
+export default validateRequest;
